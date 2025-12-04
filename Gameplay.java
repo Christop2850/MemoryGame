@@ -28,17 +28,20 @@ public class Gameplay
                 bytNum ++;
             }
         }
-        
+    }
+    
+    //this method will print the current grid to the screen
+    //Christopher
+    public static void printGrid(byte [][] bytGrid)
+    {
         //print to the screen the grid using a for loop
-        for (byte i = 0; i<bytDisplayGrid.length ;i++)
+        for (byte i = 0; i<bytGrid.length ;i++)
         {
-            for(byte j = 0; j <bytDisplayGrid[0].length; j++)
+            for(byte j = 0; j <bytGrid[0].length; j++)
             {
-                System.out.print(bytDisplayGrid[i][j] +  " ");
+                System.out.print(bytGrid[i][j] +  " ");
             }
             System.out.println("");
         }
-        
-        
     }
 }
