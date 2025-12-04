@@ -7,6 +7,15 @@
  */
 public class Gameplay
 {
+    //this is the main gameplay class that will bring all the methods together and let the player play the game
+    //Christopher
+    public static void gamePlay()
+    {
+        //this needs to be done -Chris
+        //will work on descision structor late lmao
+    }
+    
+    
     
     //This method will generate a grid for the user to see using a 2d array
     //Christopher
