@@ -5,14 +5,73 @@
  * @author ()
  * @version (November 4th, 2025)
  */
+//import Scanner to take in user input
+import java.util.Scanner;
 public class Gameplay
 {
     //this is the main gameplay class that will bring all the methods together and let the player play the game
     //Christopher
     public static void gamePlay()
     {
-        //this needs to be done -Chris
-        //will work on descision structor late lmao
+        //create two variables of type byte to hold the user's input
+        byte bytInput1 = 0, bytInput2 = 0;
+        
+        //create a varaible of type boolean to error trap
+        boolean bolError = false;
+        
+        //ask the user for the first card they want to flip
+        System.out.println("Which first card do you want to pick (Please input the number)");
+        
+        //use a do while loop in case there is a error
+        do
+        {
+            //populate the variable with the user's input and error trap using a try catch block
+            try
+            {
+                bytInput1 = new Scanner(System.in).nextByte();
+                bolError = false;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Error, please try again");
+                bolError = true;
+            }
+            
+            //use a if block error trap
+            if ((bytInput1 > 16 || bytInput1 < 1) && bolError == false)
+            {
+                System.out.println("Error, please try again");
+                bolError = true;
+            }
+        } while (bolError);
+        
+        //ask the user for the first card they want to flip
+        System.out.println("Which seconde card do you want to pick (Please input the number)");
+        
+        //use a do while loop in case there is a error
+        do
+        {
+            //populate the variable with the user's input and error trap using a try catch block
+            try
+            {
+                bytInput2 = new Scanner(System.in).nextByte();
+                bolError = false;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Error, please try again");
+                bolError = true;
+            }
+            
+            //use a if block error trap
+            if ((bytInput2 > 16 || bytInput2 < 1) && bolError == false)
+            {
+                System.out.println("Error, please try again");
+                bolError = true;
+            }
+        } while (bolError);
+        
+        
     }
     
     
