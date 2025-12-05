@@ -16,8 +16,15 @@ public class Gameplay
         //create two variables of type byte to hold the user's input
         byte bytInput1 = 0, bytInput2 = 0;
         
+        //initialize a 2d array of type byte to hold the display grid to show the player
+        byte[][] bytDisplay;
+        
         //create a varaible of type boolean to error trap
         boolean bolError = false;
+        
+        //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
+        bytDisplay = generateGrid();
+        printGrid(bytDisplay);
         
         //ask the user for the first card they want to flip
         System.out.println("Which first card do you want to pick (Please input the number)");
@@ -74,11 +81,16 @@ public class Gameplay
         
     }
     
-    
+    //this method will generate a 2d array with the object cards in them
+    //Christopher
+    public static void randomizeGrid()
+    {
+        
+    }
     
     //This method will generate a grid for the user to see using a 2d array
     //Christopher
-    public static void generateGrid()
+    public static byte[][] generateGrid()
     {
         //Create a 2d array of type byte to hold the numbers to display the grid
         //initialize the 2d array to be 4x4
@@ -96,6 +108,9 @@ public class Gameplay
                 bytNum ++;
             }
         }
+        
+        //return the grid
+        return bytDisplayGrid;
     }
     
     //this method will print the current grid to the screen
