@@ -2,8 +2,8 @@
 /**
  * This class will contain the gameplay methods and logic nessescary to run the game 
  *
- * @author ()
- * @version (November 4th, 2025)
+ * @author (Christopher)
+ * @version (November 5th, 2025)
  */
 //import Scanner to take in user input
 import java.util.Scanner;
