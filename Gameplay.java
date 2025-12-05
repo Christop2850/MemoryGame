@@ -25,6 +25,8 @@ public class Gameplay
         //create a varaible of type boolean to error trap
         boolean bolError = false;
         
+        //call the randomizeGrid method to populate the back end grid
+        
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
         printGrid(bytDisplay);
@@ -94,7 +96,7 @@ public class Gameplay
         //initialize 2 variables of type byte to move through the 2d array
         byte bytCol = 0, bytRow = 0;
         
-        //initialize the objects
+        //initialize the objects and 2d array
         
         while (bytRandom == 0)
         {
