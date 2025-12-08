@@ -16,65 +16,81 @@ public class Profile extends Player
     
     public static boolean checker(Player player)
     {
+        File file = new File(player.getstrUserName()+".txt");
+            
+            if (file.exists())
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+    }
+    
+    public static void Login(Player player)
+    {
         try
         {
-            //declare a variable of type bankaccount
-            player = new Player(player.getstrUserName());
+            
+            //declare a variable to store the ObjectInputStream (OIS)
+            //called in
+            ObjectInputStream in;
+            
+            //build an object using the default constructor
+            player = new Player();
             
             //Create a Scanner object and connect it to the filereader object
             //fileReader access the file
             //scanner allows us to read in the info
-            Scanner in = new Scanner(new FileReader(player.getstrUserName()+".txt"));
+            //build the OIS and connect FileInputStream - specific 
+            //for objects
+            in = new ObjectInputStream(new FileInputStream(player.getstrUserName()+".txt"));
             
-            //declare variables to store info from file
-            //then use the scanner to read in data
-            String name = in.nextLine();
-            String password = in.nextLine();
-            
-            player = new Player(name,password);
-            //System.out.println(aBankAccount);
-            
+            //the object get set to the class with the OIS.readobject 
+            player = (Player)in.readObject();
             
             //closing the scanner and filereader
             in.close();
-            return true;
+        } 
+        catch (ClassNotFoundException e) 
+        {
+            //System.out.println("Error: Object'c class does not match");
+            
+            
         } 
         catch (FileNotFoundException e) 
         {
-            System.out.println("Error: Cannot open file for reading");
-            return false;
-        } 
-        catch (NoSuchElementException e) 
-        {
-            System.out.println("Error: EOF encountered, file may be corrupt");
-            return false; 
+            //System.out.println("Error: Cannot open file for reading");
+            
         } 
         catch (IOException e) 
         {
-            System.out.println("Error: Cannot read from file");
-            return false; 
+            //System.out.println("Error: Cannot read from file");
+            
         }
     }
 
-    public static void Signup()
+    public static void Signup(Player newPlayer)
     {
         try
         {
-            Player newPlayer =  new Player();
 
-            //declaring a variable of type printwrite and calling it out
-            PrintWriter out;
+            //declare a variable of type OOS - which will write the entire
+            //object to the file
+            ObjectOutputStream out;
 
             //calling the overload constructor
             newPlayer = new Player(newPlayer.getstrUserName());
+            
 
-            //build the printwriter and connect a filewriter
-            out = new PrintWriter(new FileWriter(newPlayer.getstrUserName()+".txt", true));
+            //build an OOS object and connect it with a FOS to create the txt file
+            out = new ObjectOutputStream(new FileOutputStream(newPlayer.getstrUserName()+".txt"));
 
-            //print a line using the printwriter - by calling a get method
-            //associated with the object
-            out.println(newPlayer.getstrUserName());
-            out.println(newPlayer.getstrPassword());
+            //use the OOS method writeobject and send in the name of the 
+            //object
+            out.writeObject(newPlayer);
 
             //write to file using the toString method in the bankaccount object
             //out.println("\n" + aBankAccount);
