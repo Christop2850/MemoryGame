@@ -19,6 +19,9 @@ public class Gameplay
         //create two variables of type byte to hold the user's input
         byte bytInput1 = 0, bytInput2 = 0;
         
+        //initialize variables of type byte to hold the indexs of the two cards chosen  
+        byte bytColIndex1 = 0, bytRowIndex1 = 0 ,bytColIndex2 = 0, bytRowIndex2 = 0;
+        
         //initialize a 2d array of type byte to hold the display grid to show the player
         byte[][] bytDisplay;
         
@@ -83,6 +86,29 @@ public class Gameplay
             }
         } while (bolError);
         
+        //search through the display grid for the index containing the 2 cards the player asked for
+        for (byte i = 0; i< bytDisplay.length ;i++)
+        {
+            for (byte j = 0; j< bytDisplay[0].length ;j++)
+            {
+                if (bytInput1 == bytDisplay[i][j])
+                {
+                    bytColIndex1 = j;
+                    bytRowIndex1 = i;
+                }
+            }
+        }
+        for (byte i = 0; i< bytDisplay.length ;i++)
+        {
+            for (byte j = 0; j< bytDisplay[0].length ;j++)
+            {
+                if (bytInput2 == bytDisplay[i][j])
+                {
+                    bytColIndex2 = j;
+                    bytRowIndex2 = i;
+                }
+            }
+        }
         
     }
     
@@ -104,7 +130,7 @@ public class Gameplay
             bytRandom = (byte) (Math.random()* 2);
             
             //use an if statement check if it should populate the 2d array
-            //add the thing to check if it's already populated
+            //add the thing to check if it's already populated using null
             if (bytRandom == 1 )
             {
                 //populate the 2d array
