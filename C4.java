@@ -12,8 +12,8 @@ public class C4 extends Cards
     public C4()
     {
         
-        //set super class variable equal to B for this object
-        super('B');
+        //set super class variable equal to D for this object
+        super('D');
         
     }
 
@@ -22,7 +22,7 @@ public class C4 extends Cards
     public String toString()
     {
 
-        return "B";
+        return "D";
 
     }
     

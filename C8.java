@@ -12,8 +12,8 @@ public class C8 extends Cards
     public C8()
     {
         
-        //set super class variable equal to D for this object
-        super('D');
+        //set super class variable equal to H for this object
+        super('H');
         
     }
 
@@ -22,7 +22,7 @@ public class C8 extends Cards
     public String toString()
     {
 
-        return "D";
+        return "H";
 
     }
     
