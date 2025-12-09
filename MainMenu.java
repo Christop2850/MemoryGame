@@ -8,7 +8,7 @@
 import javax.swing.JOptionPane;
 public class MainMenu extends Player
 {
-    public static void main (String args[])
+    public static void Intro( )
     {
         //settign variables for username and password
         String strUserName = "";

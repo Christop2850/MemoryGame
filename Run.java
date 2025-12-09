@@ -9,7 +9,9 @@ public class Run
 {
     public static void Play()
     {
+        MainMenu.Intro();
         
+        Gameplay.gamePlay();
         
     }
 }
