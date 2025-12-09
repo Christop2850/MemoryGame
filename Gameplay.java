@@ -25,10 +25,14 @@ public class Gameplay
         //initialize a 2d array of type byte to hold the display grid to show the player
         byte[][] bytDisplay;
         
+        //declare a 2d array of type Cards to hold the randomized Cards
+        Cards[][] Deck;
+        
         //create a varaible of type boolean to error trap
         boolean bolError = false;
         
         //call the randomizeGrid method to populate the back end grid
+        Deck = randomizeGrid(COL,ROW);
         
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
@@ -110,65 +114,86 @@ public class Gameplay
             }
         }
         
+        
     }
     
     //this method will generate a 2d array with the object cards in them
     //Christopher
-    public static void randomizeGrid()
+    public static Cards[][] randomizeGrid(byte bytColSize, byte bytRowSize)
     {
         //initialize a varaible of type byte to use to randomize the placement of the cards
         byte bytRandom = 0;
         
-        //initialize 2 variables of type byte to move through the 2d array
-        byte bytCol = 0, bytRow = 0;
+        //initialize a variable type boolean to check if the 2d array has been populated
+        boolean bolPopulated = false;
         
-        //initialize the objects and 2d array
+        //initialize the 2d array of type card
+        Cards[][] Deck = new Cards[bytRowSize][bytColSize];
         
-        while (bytRandom == 0)
-        {
-            //randomly generate a 1 or 0 to populate the variable
-            bytRandom = (byte) (Math.random()* 2);
-            
-            //use an if statement check if it should populate the 2d array
-            //add the thing to check if it's already populated using null
-            if (bytRandom == 1 )
+        //initialize a array of type card to temporarily hold the cards so we can loop the population of the 2d array
+        Cards[] TempDeck = new Cards[bytColSize + bytRowSize];
+        
+        //intialize one of each object of type card
+        C1 c1 = new C1();
+        C2 c2 = new C2();
+        C3 c3 = new C3();
+        C4 c4 = new C4();
+        C5 c5 = new C5();
+        C6 c6 = new C6();
+        C7 c7 = new C7();
+        C8 c8 = new C8();
+        
+        //populate the temporary deck
+        TempDeck[0] = c1;
+        TempDeck[1] = c2;
+        TempDeck[2] = c3;
+        TempDeck[3] = c4;
+        TempDeck[4] = c5;
+        TempDeck[5] = c6;
+        TempDeck[6] = c7;
+        TempDeck[7] = c8;
+        
+        //randomly populate the 2dArray
+        for (byte i = 0; i < 2 ;i++)
+        {            
+            for (byte j = 0; j <TempDeck.length ;j++)
             {
-                //populate the 2d array
-            }
-            
-            //move to the left in the 2d array
-            bytCol++;
-            
-            //use an if statement to check if it should move down a row
-            //add .length instead of 0
-            if (bytCol == 0)
-            {
-                //reset the columb variable
-                bytCol = 0;
-                
-                //use an if statement to error trap if the loops reaches the end of the 2d array
-                //add .length instead of 0
-                if (bytRow == 0)
+                //reset boolean
+                bolPopulated = false;
+                while (bolPopulated == false)
                 {
-                    //reset the row variable
-                    bytRow = 0;
-                }
-                else
-                {
-                    //move down one row
-                    bytRow++;
+                   for(byte bytRow = 0; bytRow<bytRowSize ;bytRow++)
+                    {
+                        for (byte bytCol = 0; bytCol <bytColSize; bytCol++)
+                        {
+                           //randomly generate a 1 or 0 to populate the variable
+                            bytRandom = (byte) (Math.random()* 2);
+                            
+                            //use an if statement check if it should populate the 2d array
+                            if ((bytRandom == 1) && (Deck[bytRow][bytCol] == null) && (bolPopulated == false))
+                            {
+                                //populate the 2d array
+                                Deck[bytRow][bytCol] = TempDeck[j];
+                                
+                                bolPopulated = true;
+                            } 
+                        }
+                    } 
                 }
             }
-        }
+        }        
+        
+        //return the 2d array
+        return Deck;    
     }
     
     //This method will generate a grid for the user to see using a 2d array
     //Christopher
-    public static byte[][] generateGrid(byte bytCol, byte bytRow)
+    public static byte[][] generateGrid(byte bytColSize, byte bytRowSize)
     {
         //Create a 2d array of type byte to hold the numbers to display the grid
         //initialize the 2d array to be 4x4
-        byte[][] bytDisplayGrid = new byte[bytCol][bytRow];
+        byte[][] bytDisplayGrid = new byte[bytRowSize][bytColSize];
         
         //initialize and populate a variable of type byte to populate the grid
         byte bytNum = 1;
