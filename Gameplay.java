@@ -226,4 +226,28 @@ public class Gameplay
             System.out.println("");
         }
     }
+    
+    //this method will tell the user if they won the game or not
+    //Farheen
+    public static void endingMethod(boolean bolWon)
+    {
+        
+        //code an if statement to output a message to the user telling them if they won
+        if(bolWon == true)
+        {
+            
+            //output message
+            System.out.println("Congratulations! You won the game!");
+            
+        }
+        else
+        {
+            
+            //output
+            System.out.println("You lost the game!");
+            
+        }
+        
+    }
+    
 }

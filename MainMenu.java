@@ -13,79 +13,117 @@ public class MainMenu extends Player
         //settign variables for username and password
         String strUserName = "";
         String strPassword = "";
-        
+        byte bytUserOption = 0;
         boolean exist = false;
-        
+
         //code an opening statement for the user
         JOptionPane.showMessageDialog(null,"Welcome to Match Mania!!!! \nThis is a memory card game, to test your memory!!!!");
-        
+
         //giving the user the rules
         JOptionPane.showMessageDialog(null, getGameRules());
-        
-        Login(strUserName,strPassword,exist);
-        
+
+        //
+        bytUserOption = (byte)JOptionPane.showConfirmDialog(null,"Are you a new User?");
+
+        if (bytUserOption == 0)
+        {
+            //call sign up method
+            SignUP(strUserName,strPassword);
+        }
+        else if (bytUserOption == 1)
+        {
+            //call log in method
+            Login(strUserName,strPassword,exist);
+        }
+        else
+        {
+            return;
+        }
+
     }
-    
     //non void method of type string to output the game rules
     public static String getGameRules()
     {
         //Outputting the rules to the user
         return ("You will be shown a grid of numbers 1–16"
-        + "\nChoose two numbers from the grid."
-        + "\nEach number reveals a hidden letter"
-        + "\nIf the two letters match, your score increases!"
-        + "\nIf the letters do not match, you lose health."
-        + "\nWhen your health reaches 0, the game ends."
-        + "\nBut if you match all pairs before running out of health, you win!");
-        
+            + "\nChoose two numbers from the grid."
+            + "\nEach number reveals a hidden letter"
+            + "\nIf the two letters match, your score increases!"
+            + "\nIf the letters do not match, you lose health."
+            + "\nWhen your health reaches 0, the game ends."
+            + "\nBut if you match all pairs before running out of health, you win!");
+
     }
-    
+
     //void method for the user to sign up or login
     public static void Login(String u, String p, boolean e)
     {
+        boolean b = false;
+        
         //initializing and populating the users username in order to check if they exist
-        String userName = JOptionPane.showInputDialog("Please enter your UserName");
-        
-        Player player = new Player(userName);
-        
+        u = JOptionPane.showInputDialog("Please enter your UserName");
+
+        Player player = new Player(u);
+
         e = Profile.checker(player);
-        
+
         if (e == true)
         {
-            
-            JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
-            
+
             Profile.Login(player);
+
+            do 
+            {
+                p = JOptionPane.showInputDialog("Please enter your password");
+
+                if (p.equals(player.getstrPassword()))
+                {
+                    JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
+                    b= true;
+                }
+                else
+                {
+                    b = false;
+                }
+            }while(b = false);
+
+            
         }
         else
         {
             JOptionPane.showMessageDialog(null,"This player does nopt exist!!!, Please signUp");
-            
-            SignUP(userName,p);
+
+            SignUP(u,p);
         }
-        
+
     }
-    
+
     public static void SignUP(String u, String p)
     {
-        //
+        boolean correct = false;
         //
         u = JOptionPane.showInputDialog("Please enter your UserName");
-        
-        p = JOptionPane.showInputDialog("Please enter a password between 1-5");
-        
-        if (p.length() <= 5 && p.length() >= 1)
+        do
         {
-            JOptionPane.showMessageDialog(null,"Perfect!!");
+            p = JOptionPane.showInputDialog("Please enter a password between 1-5");
+
+            if (p.length() <= 5 && p.length() >= 1)
+            {
+                JOptionPane.showMessageDialog(null,"Perfect!!");
+                correct = true;
+            }
+            else 
+            {
+                correct = false;
+            }
         }
-        else 
-        {
-            p = JOptionPane.showInputDialog("Error"+"\nPlease enter a password between 1-5");
-        }
-        
+        while(correct == false);
+
+        //output a friendly message to the user
+        JOptionPane.showMessageDialog(null,"Make sure to remember your username and passowrd because you will need it for next time!!!");
+
         Player player = new Player(u, p); 
         
         Profile.Signup(player);
-        
     }
 }
