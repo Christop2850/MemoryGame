@@ -7,4 +7,9 @@
  */
 public class Run
 {
+    public static void Play()
+    {
+        
+        
+    }
 }

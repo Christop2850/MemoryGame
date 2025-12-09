@@ -29,7 +29,7 @@ public class Profile extends Player
             }
     }
     
-    public static void Login(Player player)
+    public static Player Login(Player player)
     {
         try
         {
@@ -39,7 +39,7 @@ public class Profile extends Player
             ObjectInputStream in;
             
             //build an object using the default constructor
-            player = new Player();
+            //player = new Player();
             
             //Create a Scanner object and connect it to the filereader object
             //fileReader access the file
@@ -51,9 +51,10 @@ public class Profile extends Player
             //the object get set to the class with the OIS.readobject 
             player = (Player)in.readObject();
             
+            
             //closing the scanner and filereader
             in.close();
-        } 
+                    } 
         catch (ClassNotFoundException e) 
         {
             //System.out.println("Error: Object'c class does not match");
@@ -70,6 +71,8 @@ public class Profile extends Player
             //System.out.println("Error: Cannot read from file");
             
         }
+        return player;
+
     }
 
     public static void Signup(Player newPlayer)
@@ -82,7 +85,7 @@ public class Profile extends Player
             ObjectOutputStream out;
 
             //calling the overload constructor
-            newPlayer = new Player(newPlayer.getstrUserName());
+            newPlayer = new Player(newPlayer.getstrUserName(),newPlayer.getstrPassword());
             
 
             //build an OOS object and connect it with a FOS to create the txt file

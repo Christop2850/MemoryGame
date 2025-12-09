@@ -59,18 +59,18 @@ public class MainMenu extends Player
     public static void Login(String u, String p, boolean e)
     {
         boolean b = false;
-        
+
         //initializing and populating the users username in order to check if they exist
         u = JOptionPane.showInputDialog("Please enter your UserName");
 
-        Player player = new Player(u);
+        Player player = new Player(u,p);
 
         e = Profile.checker(player);
 
         if (e == true)
         {
 
-            Profile.Login(player);
+            player = Profile.Login(player);
 
             do 
             {
@@ -83,11 +83,12 @@ public class MainMenu extends Player
                 }
                 else
                 {
+                    JOptionPane.showMessageDialog(null,"Wrong password try again!!");
                     b = false;
+                    JOptionPane.showMessageDialog(null,player.getstrPassword());
                 }
-            }while(b = false);
+            }while(b == false);
 
-            
         }
         else
         {
@@ -103,9 +104,11 @@ public class MainMenu extends Player
         boolean correct = false;
         //
         u = JOptionPane.showInputDialog("Please enter your UserName");
+
+        p = JOptionPane.showInputDialog("Please enter a password between 1-5");
+
         do
         {
-            p = JOptionPane.showInputDialog("Please enter a password between 1-5");
 
             if (p.length() <= 5 && p.length() >= 1)
             {
@@ -114,6 +117,7 @@ public class MainMenu extends Player
             }
             else 
             {
+
                 correct = false;
             }
         }
@@ -122,8 +126,13 @@ public class MainMenu extends Player
         //output a friendly message to the user
         JOptionPane.showMessageDialog(null,"Make sure to remember your username and passowrd because you will need it for next time!!!");
 
-        Player player = new Player(u, p); 
-        
+        //JOptionPane.showMessageDialog(null,p);
+        Player player = new Player(u,p);  
+
         Profile.Signup(player);
+
+        //output a friendly message to the user
+        JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
+
     }
 }
