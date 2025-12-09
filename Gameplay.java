@@ -42,6 +42,8 @@ public class Gameplay
         
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
+        
+        //EVERYTHING UNDER THIS NEEDS TO BE LOOPED WITH PROPER WIN AND LOSE CONIDITIONS WAHHOOOO
         printGrid(bytDisplay);
         
         //ask the user for the first card they want to flip
