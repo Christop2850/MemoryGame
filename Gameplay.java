@@ -25,11 +25,17 @@ public class Gameplay
         //initialize a 2d array of type byte to hold the display grid to show the player
         byte[][] bytDisplay;
         
+        //declare a constant of byte for health
+        final byte HEALTH = 10;
+        
         //declare a 2d array of type Cards to hold the randomized Cards
         Cards[][] Deck;
         
         //create a varaible of type boolean to error trap
         boolean bolError = false;
+        
+        //declare a variable of type boolean to store if the cards are a match or not
+        boolean bolMatch;
         
         //call the randomizeGrid method to populate the back end grid
         Deck = randomizeGrid(COL,ROW);
@@ -65,7 +71,7 @@ public class Gameplay
         } while (bolError);
         
         //ask the user for the first card they want to flip
-        System.out.println("Which seconde card do you want to pick (Please input the number)");
+        System.out.println("Which second card do you want to pick (Please input the number)");
         
         //use a do while loop in case there is a error
         do
@@ -114,6 +120,36 @@ public class Gameplay
             }
         }
         
+        //compare two cards chosen by the user using equals method from cards class
+        //Farheen
+        bolMatch = Cards.equals(Deck[bytRowIndex1][bytColIndex1], Deck[bytRowIndex2][bytColIndex2]);
+        
+        //code an if statement to tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
+        //Farheen
+        if(bolMatch = true)
+        {
+            
+            //output that cards are a match
+            System.out.println("The cards are a match. Your health is now: " + HEALTH);
+            
+            //tell user what match they found
+            System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+            
+            //set correct cards on display grid to zero
+            bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+            bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+            
+        }
+        else
+        {
+            
+            //output that cards don't match
+            System.out.println("The cards are not a match. Your health is now: " + (HEALTH-1));
+            
+            //tell user what cards are at locations chosen
+            System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
+            
+        }
         
     }
     

@@ -12,7 +12,7 @@ public class Cards
 {
     
     //code a variable of type char to hold the value of the card
-    char chrValue;
+    static char chrValue;
     
     //initialize the constructor and set the char to the parameter value\
     public Cards(char v)
@@ -21,19 +21,19 @@ public class Cards
     }
     
     //code an equals method to compare two cards
-    public boolean equals(Cards card)
+    public static boolean equals(Cards card1, Cards card2)
     {
 
-	if (card == null)
-	{
+        if (card1 == card2)
+        {
 
-		return false;
+            return true;
 
-	}
+        }
         
-	//return
-	return this.chrValue == card.chrValue;
-	
+        //return
+        return false;
+    
     }
 
     //code a to String to ouput the character the card is holding
