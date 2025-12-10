@@ -6,171 +6,226 @@
  * @version (November 5th, 2025)
  */
 //import Scanner to take in user input
-import java.util.Scanner;
+import java.util.*;
 public class Gameplay
 {
+
     //this is the main gameplay class that will bring all the methods together and let the player play the game
     //Christopher
     public static void gamePlay()
     {
         //initialize two final variables of type byte to hold the size of the grid
         final byte COL = 4, ROW = 4;
-        
+
         //create two variables of type byte to hold the user's input
         byte bytInput1 = 0, bytInput2 = 0;
-        
+
         //initialize variables of type byte to hold the indexs of the two cards chosen  
         byte bytColIndex1 = 0, bytRowIndex1 = 0 ,bytColIndex2 = 0, bytRowIndex2 = 0;
-        
+
         //initialize a 2d array of type byte to hold the display grid to show the player
         byte[][] bytDisplay;
-        
+
         //declare a constant of byte for health
-        final byte HEALTH = 10;
-        
+        //final byte HEALTH = 10;
+        byte health = 10;
+        int pairsLeft = 8;
+
         //declare a 2d array of type Cards to hold the randomized Cards
         Cards[][] Deck;
-        
+
+        //Atiqat
+        ArrayList<Byte> usedNumbers = new ArrayList<>();
+
         //create a varaible of type boolean to error trap
         boolean bolError = false;
-        
+
         //declare a variable of type boolean to store if the cards are a match or not
         boolean bolMatch;
-        
+
         //call the randomizeGrid method to populate the back end grid
         Deck = randomizeGrid(COL,ROW);
-        
+
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
-        
+
         //EVERYTHING UNDER THIS NEEDS TO BE LOOPED WITH PROPER WIN AND LOSE CONIDITIONS WAHHOOOO
-        printGrid(bytDisplay);
-        
-        //ask the user for the first card they want to flip
-        System.out.println("Which first card do you want to pick (Please input the number)");
-        
-        //use a do while loop in case there is a error
-        do
+        //Atiqat
+        while (health > 0 && pairsLeft > 0 )
+
         {
-            //populate the variable with the user's input and error trap using a try catch block
-            try
-            {
-                bytInput1 = new Scanner(System.in).nextByte();
-                bolError = false;
-            }
-            catch(Exception e)
-            {
-                System.out.println("Error, please try again");
-                bolError = true;
-            }
+            //Atiqat
+            // PRINT UPDATED GRID
+            System.out.println("---------------------------------------\n");
+            printGrid(bytDisplay);
+            System.out.println("\nHealth: " + health);
+            System.out.println("Pairs left: " + pairsLeft+"\n");
             
-            //use a if block error trap
-            if ((bytInput1 > 16 || bytInput1 < 1) && bolError == false)
+
+            //ask the user for the first card they want to flip
+            System.out.println("Which first card do you want to pick (Please input the number)");
+
+            //use a do while loop in case there is a error
+            do
             {
-                System.out.println("Error, please try again");
-                bolError = true;
-            }
-        } while (bolError);
-        
-        //ask the user for the first card they want to flip
-        System.out.println("Which second card do you want to pick (Please input the number)");
-        
-        //use a do while loop in case there is a error
-        do
-        {
-            //populate the variable with the user's input and error trap using a try catch block
-            try
-            {
-                bytInput2 = new Scanner(System.in).nextByte();
-                bolError = false;
-            }
-            catch(Exception e)
-            {
-                System.out.println("Error, please try again");
-                bolError = true;
-            }
-            
-            //use a if block error trap
-            if ((bytInput2 > 16 || bytInput2 < 1) && bolError == false)
-            {
-                System.out.println("Error, please try again");
-                bolError = true;
-            }
-        } while (bolError);
-        
-        //search through the display grid for the index containing the 2 cards the player asked for
-        for (byte i = 0; i< bytDisplay.length ;i++)
-        {
-            for (byte j = 0; j< bytDisplay[0].length ;j++)
-            {
-                if (bytInput1 == bytDisplay[i][j])
+                //populate the variable with the user's input and error trap using a try catch block
+                try
                 {
-                    bytColIndex1 = j;
-                    bytRowIndex1 = i;
+                    bytInput1 = new Scanner(System.in).nextByte();
+                    bolError = false;
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Error, please try again");
+                    bolError = true;
+                }
+
+                //use a if block error trap
+                if ((bytInput1 > 16 || bytInput1 < 1) && bolError == false)
+                {
+                    System.out.println("Error, please try again");
+                    bolError = true;
+                }
+
+                //Atiqat
+                // prevent choosing a matched card
+                if (usedNumbers.contains(bytInput1)) {
+                    System.out.println("This card is already matched. Choose a different card.");
+                    bolError = true;
+                }
+            } while (bolError);
+
+            //ask the user for the first card they want to flip
+            System.out.println("Which second card do you want to pick (Please input the number)");
+
+            //use a do while loop in case there is a error
+            do
+            {
+                //populate the variable with the user's input and error trap using a try catch block
+                try
+                {
+                    bytInput2 = new Scanner(System.in).nextByte();
+                    bolError = false;
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Error, please try again");
+                    bolError = true;
+                }
+
+                //use a if block error trap
+                if ((bytInput2 > 16 || bytInput2 < 1) && bolError == false)
+                {
+                    System.out.println("Error, please try again");
+                    bolError = true;
+                }
+
+                //Atiqat
+                //prevent choosing a matched card
+                //if the arrayList contains the number chosen it is looped
+                if (usedNumbers.contains(bytInput2)) {
+                    System.out.println("This card is already matched. Choose a different card.");
+                    bolError = true;
+                }
+            } while (bolError);
+
+            //search through the display grid for the index containing the 2 cards the player asked for
+            for (byte i = 0; i< bytDisplay.length ;i++)
+            {
+                for (byte j = 0; j< bytDisplay[0].length ;j++)
+                {
+                    if (bytInput1 == bytDisplay[i][j])
+                    {
+                        bytColIndex1 = j;
+                        bytRowIndex1 = i;
+                    }
                 }
             }
-        }
-        for (byte i = 0; i< bytDisplay.length ;i++)
-        {
-            for (byte j = 0; j< bytDisplay[0].length ;j++)
+            for (byte i = 0; i< bytDisplay.length ;i++)
             {
-                if (bytInput2 == bytDisplay[i][j])
+                for (byte j = 0; j< bytDisplay[0].length ;j++)
                 {
-                    bytColIndex2 = j;
-                    bytRowIndex2 = i;
+                    if (bytInput2 == bytDisplay[i][j])
+                    {
+                        bytColIndex2 = j;
+                        bytRowIndex2 = i;
+                    }
                 }
             }
+
+            //compare two cards chosen by the user using equals method from cards class
+            //Farheen
+            bolMatch = Cards.equals(Deck[bytRowIndex1][bytColIndex1], Deck[bytRowIndex2][bytColIndex2]);
+
+            //code an if statement to tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
+            //Farheen
+            if(bolMatch = true)
+            {
+
+                //output that cards are a match
+                System.out.println("The cards are a match. Your health is now: " + health);
+
+                //tell user what match they found
+                System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+
+                //set correct cards on display grid to zero
+                bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+                bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+
+                //Atiqat 
+                usedNumbers.add(bytInput1);
+                usedNumbers.add(bytInput2);
+
+                //Atiqat
+                pairsLeft--;
+                health++;
+
+            }
+            else
+            {
+
+                //output that cards don't match
+                System.out.println("The cards are not a match. Your health is now: " + (health-1));
+
+                //tell user what cards are at locations chosen
+                System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
+
+            }
+            
+            //atiqat 
+            if (health ==0)
+            {
+                endingMethod(false, health);
+            }
+
         }
         
-        //compare two cards chosen by the user using equals method from cards class
-        //Farheen
-        bolMatch = Cards.equals(Deck[bytRowIndex1][bytColIndex1], Deck[bytRowIndex2][bytColIndex2]);
-        
-        //code an if statement to tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
-        //Farheen
-        if(bolMatch = true)
+        if (pairsLeft == 0 && health >= 1)
         {
-            
-            //output that cards are a match
-            System.out.println("The cards are a match. Your health is now: " + HEALTH);
-            
-            //tell user what match they found
-            System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
-            
-            //set correct cards on display grid to zero
-            bytDisplay[bytRowIndex1][bytColIndex1] = 0;
-            bytDisplay[bytRowIndex2][bytColIndex2] = 0;
-            
+            endingMethod(true, health);
         }
         else
         {
-            
-            //output that cards don't match
-            System.out.println("The cards are not a match. Your health is now: " + (HEALTH-1));
-            
-            //tell user what cards are at locations chosen
-            System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
-            
+            endingMethod(false, health);
         }
-        
+
     }
-    
     //this method will generate a 2d array with the object cards in them
     //Christopher
     public static Cards[][] randomizeGrid(byte bytColSize, byte bytRowSize)
     {
         //initialize a varaible of type byte to use to randomize the placement of the cards
         byte bytRandom = 0;
-        
+
         //initialize a variable type boolean to check if the 2d array has been populated
         boolean bolPopulated = false;
-        
+
         //initialize the 2d array of type card
         Cards[][] Deck = new Cards[bytRowSize][bytColSize];
-        
+
         //initialize a array of type card to temporarily hold the cards so we can loop the population of the 2d array
         Cards[] TempDeck = new Cards[bytColSize + bytRowSize];
-        
+
         //intialize one of each object of type card
         C1 c1 = new C1();
         C2 c2 = new C2();
@@ -180,7 +235,7 @@ public class Gameplay
         C6 c6 = new C6();
         C7 c7 = new C7();
         C8 c8 = new C8();
-        
+
         //populate the temporary deck
         TempDeck[0] = c1;
         TempDeck[1] = c2;
@@ -190,7 +245,7 @@ public class Gameplay
         TempDeck[5] = c6;
         TempDeck[6] = c7;
         TempDeck[7] = c8;
-        
+
         //randomly populate the 2dArray
         for (byte i = 0; i < 2 ;i++)
         {            
@@ -200,19 +255,19 @@ public class Gameplay
                 bolPopulated = false;
                 while (bolPopulated == false)
                 {
-                   for(byte bytRow = 0; bytRow<bytRowSize ;bytRow++)
+                    for(byte bytRow = 0; bytRow<bytRowSize ;bytRow++)
                     {
                         for (byte bytCol = 0; bytCol <bytColSize; bytCol++)
                         {
-                           //randomly generate a 1 or 0 to populate the variable
+                            //randomly generate a 1 or 0 to populate the variable
                             bytRandom = (byte) (Math.random()* 2);
-                            
+
                             //use an if statement check if it should populate the 2d array
                             if ((bytRandom == 1) && (Deck[bytRow][bytCol] == null) && (bolPopulated == false))
                             {
                                 //populate the 2d array
                                 Deck[bytRow][bytCol] = TempDeck[j];
-                                
+
                                 bolPopulated = true;
                             } 
                         }
@@ -220,11 +275,11 @@ public class Gameplay
                 }
             }
         }        
-        
+
         //return the 2d array
         return Deck;    
     }
-    
+
     //This method will generate a grid for the user to see using a 2d array
     //Christopher
     public static byte[][] generateGrid(byte bytColSize, byte bytRowSize)
@@ -232,10 +287,10 @@ public class Gameplay
         //Create a 2d array of type byte to hold the numbers to display the grid
         //initialize the 2d array to be 4x4
         byte[][] bytDisplayGrid = new byte[bytRowSize][bytColSize];
-        
+
         //initialize and populate a variable of type byte to populate the grid
         byte bytNum = 1;
-        
+
         //populate the grid with numbers 1-16 descending from top left to bottom right using for loops
         for (byte i = 0; i<bytDisplayGrid.length ;i++)
         {
@@ -245,11 +300,11 @@ public class Gameplay
                 bytNum ++;
             }
         }
-        
+
         //return the grid
         return bytDisplayGrid;
     }
-    
+
     //this method will print the current grid to the screen
     //Christopher
     public static void printGrid(byte [][] bytGrid)
@@ -264,28 +319,33 @@ public class Gameplay
             System.out.println("");
         }
     }
-    
+
     //this method will tell the user if they won the game or not
     //Farheen
-    public static void endingMethod(boolean bolWon)
+    public static void endingMethod(boolean bolWon, byte score)
     {
-        
+
         //code an if statement to output a message to the user telling them if they won
         if(bolWon == true)
         {
-            
+
             //output message
-            System.out.println("Congratulations! You won the game!");
+            System.out.println("\n\nCongratulations! You won the game!");
             
+            MainMenu.updateScore(score);
+            //
+            System.out.println("Your score is: " + score);
+            
+
         }
         else
         {
-            
+
             //output
             System.out.println("You lost the game!");
-            
+
         }
-        
+
     }
-    
+
 }

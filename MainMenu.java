@@ -1,40 +1,69 @@
-
 /**
- * Description: Main menu
- *
+ * Description: MainMenu
+ * 
+ * This class manages the introduction, login, and signup
+ * process for the Match Mania memory game. It interacts with
+ * the user using JOptionPane dialogs and communicates with
+ * the Profile class to save/load Player accounts.
+ * 
+ * Features: 
+ * 
+ *  - Displays intro messages and game rules.
+ *  - Allows users to sign up for a new account.
+ *  - Allows returning users to log into an existing account.
+ *  - Validates passwords and checks whether profiles exist.
+ * 
+ * 
  * @author (Atiqat Adefioye)
  * @version (December 5th 2025)
  */
 import javax.swing.JOptionPane;
 public class MainMenu extends Player
 {
+
+    private static Player player = new Player();
+    
+    // Variables for username, password, and menu selections
+    private static String strUserName = "";
+    private static String strPassword = "";
+    private static byte bytUserOption = 0;
+    private static boolean exist = false;
+        
+    /**
+     * Main introduction sequence for the game.
+     * Shows welcome messages, rules, and asks the user
+     * whether they are a new user or a returning user.
+     */
     public static void Intro( )
     {
-        //settign variables for username and password
-        String strUserName = "";
-        String strPassword = "";
-        byte bytUserOption = 0;
-        boolean exist = false;
+        // Variables for username, password, and menu selections
+        //String strUserName = "";
+        //String strPassword = "";
+        //byte bytUserOption = 0;
+        //boolean exist = false;
 
-        //code an opening statement for the user
+        // Opening welcome message
         JOptionPane.showMessageDialog(null,"Welcome to Match Mania!!!! \nThis is a memory card game, to test your memory!!!!");
 
-        //giving the user the rules
+        // Displaying the game rules
         JOptionPane.showMessageDialog(null, getGameRules());
 
-        //
+        // Ask if the user is new (0 = Yes, 1 = No, 2 = Cancel)
         bytUserOption = (byte)JOptionPane.showConfirmDialog(null,"Are you a new User?");
 
+        // 0 = YES → Sign up
         if (bytUserOption == 0)
         {
             //call sign up method
             SignUP(strUserName,strPassword);
         }
+        // 1 = NO → Log in
         else if (bytUserOption == 1)
         {
             //call log in method
             Login(strUserName,strPassword,exist);
         }
+        // 2 = CANCEL or closed dialog → exit intro
         else
         {
             return;
@@ -56,83 +85,133 @@ public class MainMenu extends Player
     }
 
     //void method for the user to sign up or login
+    /**
+     * Handles user login. If the username exists, the method loads
+     * the Player file and verifies the password. If the username
+     * does not exist, it redirects the user to the SignUP method.
+     *
+     * u Temporary username input
+     * p Temporary password input
+     * e Boolean flag indicating if user exists
+     */
     public static void Login(String u, String p, boolean e)
     {
-        boolean b = false;
+        boolean validPassword = false;
 
-        //initializing and populating the users username in order to check if they exist
+        //Prompt user for their username        
         u = JOptionPane.showInputDialog("Please enter your UserName");
 
-        Player player = new Player(u,p);
+        //Create a temporary Player object using the entered username
+        player = new Player(u);
 
+        //Check if the user exists using Profile.checker()
         e = Profile.checker(player);
 
+        //If the profile exists
         if (e == true)
         {
-
+            //Load saved Player object
             player = Profile.Login(player);
 
+            //Loop until password is correct
             do 
             {
                 p = JOptionPane.showInputDialog("Please enter your password");
 
                 if (p.equals(player.getstrPassword()))
                 {
-                    JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
-                    b= true;
+                    //output welcome message to user
+                    JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!"
+                    + "\n\nYour Score was: " +player.getbytScore()
+                    +"\nCan you get better???");
+
+                    //if password is correct update boolean to ture to break loop
+                    validPassword= true;
                 }
                 else
                 {
+                    //Message dialog to tell user thier password is incorrect
                     JOptionPane.showMessageDialog(null,"Wrong password try again!!");
-                    b = false;
-                    JOptionPane.showMessageDialog(null,player.getstrPassword());
+
+                    //if password is wrong update boolean to false to loop
+                    validPassword = false;
+
+                    //Checking the password
+                    //JOptionPane.showMessageDialog(null,player.getstrPassword());
                 }
-            }while(b == false);
+            }while(validPassword == false);
 
         }
+        //User does not exist
         else
         {
+            //output message to user telling them to sign up
             JOptionPane.showMessageDialog(null,"This player does nopt exist!!!, Please signUp");
 
+            //calling signUP method 
             SignUP(u,p);
         }
 
     }
 
+    /**
+     * Handles the signup process. Prompts the user for a username
+     * and a password, validates password length, and then saves
+     * the new Player profile using Profile.Signup().
+     */
     public static void SignUP(String u, String p)
     {
         boolean correct = false;
-        //
+
+        //Prompting the user for username
         u = JOptionPane.showInputDialog("Please enter your UserName");
 
-        p = JOptionPane.showInputDialog("Please enter a password between 1-5");
-
+        //Validate password length
         do
         {
 
+            //Prompting the user for password
+            p = JOptionPane.showInputDialog("Please enter a password between 1-5");
+
+            //if the password is less than or equal to 5 and greater than or equal to 1
             if (p.length() <= 5 && p.length() >= 1)
             {
+                //outputting user friendly dialog
                 JOptionPane.showMessageDialog(null,"Perfect!!");
+
+                //updates boolean to ture to stop from looping
                 correct = true;
             }
             else 
             {
-
+                //outputting message that tells user thier passowrd length was incorrect
+                JOptionPane.showMessageDialog(null, "Invalid password length! Try again."); 
+                
+                //update boolean to flase to continue loop
                 correct = false;
             }
         }
-        while(correct == false);
+        while(!correct);
 
-        //output a friendly message to the user
+        //Inform user to remember credentials
         JOptionPane.showMessageDialog(null,"Make sure to remember your username and passowrd because you will need it for next time!!!");
 
-        //JOptionPane.showMessageDialog(null,p);
-        Player player = new Player(u,p);  
-
+        // Create new Player object and save it
+        player = new Player(u,p);  
         Profile.Signup(player);
 
-        //output a friendly message to the user
+        //Final welcome message
         JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
 
+    }
+    
+    public static void updateScore(byte score)
+    { 
+        
+        player.setScore(score); 
+        
+        Profile.UpdateProfile(player);
+        
+        
     }
 }

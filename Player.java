@@ -17,7 +17,7 @@ public class Player implements java.io.Serializable
     private String strUserName, strPassword;
     
     //code an instance variable of type byte for score
-    byte bytScore;
+    private byte bytScore;
     
     //code a construtor to set the username, password, and score for each object
     public Player(String u, String p)
@@ -64,6 +64,12 @@ public class Player implements java.io.Serializable
         return this.strPassword;
     }
     
+    //Atiqat
+    public byte getbytScore()
+    {
+        return this.bytScore;
+    }
+    
     //code setters for instance variables
     public void setUserName(String u)
     {
@@ -73,6 +79,12 @@ public class Player implements java.io.Serializable
     public void setPassword(String p)
     {
         this.strPassword = p;
+    }
+    
+    //atiqat
+    public void setScore(byte s)
+    {
+        this.bytScore = s;
     }
     
 }
