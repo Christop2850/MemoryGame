@@ -41,7 +41,7 @@ public class Gameplay
         boolean bolError = false;
 
         //declare a variable of type boolean to store if the cards are a match or not
-        boolean bolMatch;
+        //boolean bolMatch;
 
         //call the randomizeGrid method to populate the back end grid
         Deck = randomizeGrid(COL,ROW);
@@ -61,7 +61,6 @@ public class Gameplay
             System.out.println("\nHealth: " + health);
             System.out.println("Pairs left: " + pairsLeft+"\n");
             
-
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
 
@@ -153,13 +152,9 @@ public class Gameplay
                 }
             }
 
-            //compare two cards chosen by the user using equals method from cards class
+            //code an if statement to compare cards and tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
             //Farheen
-            bolMatch = Cards.equals(Deck[bytRowIndex1][bytColIndex1], Deck[bytRowIndex2][bytColIndex2]);
-
-            //code an if statement to tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
-            //Farheen
-            if(bolMatch = true)
+            if(Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2]))
             {
 
                 //output that cards are a match
@@ -275,7 +270,7 @@ public class Gameplay
                 }
             }
         }        
-
+        
         //return the 2d array
         return Deck;    
     }
