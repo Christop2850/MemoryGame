@@ -168,17 +168,23 @@ public class Gameplay
                 bytDisplay[bytRowIndex2][bytColIndex2] = 0;
 
                 //Atiqat 
+                //adding the used numbers to the arraylist to stop user from using the number again
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
 
                 //Atiqat
+                //decreasing the pairs left for user to match
                 pairsLeft--;
+                //increasing health
                 health++;
 
             }
             else
             {
 
+                //Atiqat 
+                //decreasing health
+                health--;
                 //output that cards don't match
                 System.out.println("The cards are not a match. Your health is now: " + (health-1));
 
