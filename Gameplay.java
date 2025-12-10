@@ -61,16 +61,16 @@ public class Gameplay
             System.out.println("\nHealth: " + health);
             System.out.println("Pairs left: " + pairsLeft+"\n");
 
-            for (int i= 0;i<Deck.length;i++)
-            {//rows
-                for(int j = 0;j<Deck[0].length;j++)
-                {//cols
-                    //output the element with a tab    between
-                    System.out.print(Deck[i][j] + "\t");		
-                }
-                //new line for every new row
-                System.out.println ();
-            }
+            // for (int i= 0;i<Deck.length;i++)
+            // {//rows
+                // for(int j = 0;j<Deck[0].length;j++)
+                // {//cols
+                    // //output the element with a tab    between
+                    // System.out.print(Deck[i][j] + "\t");		
+                // }
+                // //new line for every new row
+                // System.out.println ();
+            // }
 
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
