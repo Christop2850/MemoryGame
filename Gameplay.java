@@ -398,17 +398,19 @@ public class Gameplay
 
             //output message
             System.out.println("\n\nCongratulations! You won the game!");
-
+            
+            //Atiqat
             //updatng the user score to thier profile
             MainMenu.updateScore(score);
-            //
+            
+            //Outputting the score to the user
             System.out.println("Your score is: " + score);
 
         }
         else
         {
 
-            //output
+            //output losing message
             System.out.println("You lost the game!");
 
         }

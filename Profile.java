@@ -15,7 +15,7 @@
  * The usernames become filenames(e.g,"gamer101.txt").
  *
  * @author (Atiqat Adefioye)
- * @version (December 5th)
+ * @version (December 5th, 2025)
  */
 //import entire IO library
 import java.io.*;
@@ -24,7 +24,7 @@ import java.io.*;
 import java.util.*; 
 public class Profile extends Player
 {
-    
+
     /**
      * Checks is a profile file exists for the given player
      * returns true if a with the username exists, false otherwise
@@ -33,59 +33,56 @@ public class Profile extends Player
     {
         //create a file object with the players username
         File file = new File(player.getstrUserName()+".txt");
-        
+
         //return weather the file exists
         return file.exists();
     }
-    
-    
+
     /**
      * Loads and returns a saved Player object from file.
      * This method reads a serialized Player object
      */
-    public static Player Login(Player player)
+    public static Player login(Player player)
     {
         try
         {
-            
+
             //declare a variable to store the ObjectInputStream (OIS)
             //called in
             ObjectInputStream in;
-            
+
             // Create an ObjectInputStream to read the Player object
             in = new ObjectInputStream(new FileInputStream(player.getstrUserName()+".txt"));
-            
+
             // Read the Player object from the file
             player = (Player)in.readObject();
 
             //closing the filereader
             in.close();
-                    } 
+        } 
+        //Amount of ! show what type of error there was
         catch (ClassNotFoundException e) 
         {
-            System.out.println("Error: Object's class does not match");
+            System.out.println("Error: This player does not exist!!!");
         } 
         catch (FileNotFoundException e) 
         {
-            System.out.println("Error: Cannot open file for reading");
-            
+            System.out.println("Error: This player does not exist!!");
         } 
         catch (IOException e) 
         {
-            System.out.println("Error: Cannot read from file");
-            
+            System.out.println("Error: This player does not exist!");
         }
+        
         //return the loaded Player object
         return player;
-
     }
-    
-    
+
     /**
      * Saves a new Player object to a file using object serialization.
      * This method creates a file "username.txt" and writes the Player to it.
      */
-    public static void Signup(Player newPlayer)
+    public static void signUp(Player newPlayer)
     {
         try
         {
@@ -107,17 +104,18 @@ public class Profile extends Player
             //close printwriter and filewriter
             out.close();
         } 
+        //Amount of ! show what type of error there was
         catch (FileNotFoundException e) 
         {
-            System.out.println("Error: Cannot open file for writing");
+            System.out.println("Error: This player does not exist!!");
         } 
         catch (IOException e) 
         {
-            System.out.println("Error: Cannot write to file");
+            System.out.println("Error: This player does not exist!");
         }
     }
-    
-    public static void UpdateProfile(Player player)
+
+    public static void updateProfile(Player player)
     {
         try
         {
@@ -138,14 +136,15 @@ public class Profile extends Player
 
             //close printwriter and filewriter
             out.close();
-        } 
+        }
+        //Amount of ! show what type of error there was
         catch (FileNotFoundException e) 
         {
-            System.out.println("Error: Cannot open file for writing");
+            System.out.println("Error: This player does not exist!!");
         } 
         catch (IOException e) 
         {
-            System.out.println("Error: Cannot write to file");
+            System.out.println("Error: This player does not exist!");
         }
     }
 }

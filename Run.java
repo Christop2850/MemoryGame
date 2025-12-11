@@ -7,10 +7,10 @@
  */
 public class Run
 {
-    public static void Play()
-    {   
+    public static void play()
+    {
         //call the main menu class to run the main menu section of the game
-        MainMenu.Intro();
+        MainMenu.intro();
         
         //call gameplay class to run that section of the game
         Gameplay.gamePlay();
