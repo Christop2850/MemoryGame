@@ -186,7 +186,7 @@ public class Gameplay
                     usedNumbers.add(bytInput1);
                     usedNumbers.add(bytInput2);
                 }
-                else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
+                else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (((Deck[bytRowIndex1][bytColIndex1]).toString()).equalsIgnoreCase("A")))
                 {
                     //decreasing the pairs left for user to match
                     intPairsLeft--;
