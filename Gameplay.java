@@ -209,7 +209,6 @@ public class Gameplay
                 bytDisplay[bytRowIndex1][bytColIndex1] = 0;
                 bytDisplay[bytRowIndex2][bytColIndex2] = 0;
 
-                //Atiqat 
                 //adding the used numbers to the arraylist to stop user from using the number again
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
