@@ -49,7 +49,6 @@ public class Gameplay
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
 
-        //EVERYTHING UNDER THIS NEEDS TO BE LOOPED WITH PROPER WIN AND LOSE CONIDITIONS WAHHOOOO
         //Atiqat
         while (health > 0 && pairsLeft > 0 )
 
@@ -60,7 +59,7 @@ public class Gameplay
             printGrid(bytDisplay);
             System.out.println("\nHealth: " + health);
             System.out.println("Pairs left: " + pairsLeft+"\n");
-
+            
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
 
@@ -130,6 +129,7 @@ public class Gameplay
             } while (bolError);
 
             //search through the display grid for the index containing the 2 cards the player asked for
+            //Christopher
             for (byte i = 0; i< bytDisplay.length ;i++)
             {
                 for (byte j = 0; j< bytDisplay[0].length ;j++)
@@ -177,9 +177,31 @@ public class Gameplay
                 //adding the used numbers to the arraylist to stop user from using the number again
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
-
+            }
+            else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
+            {
+                //decreasing the pairs left for user to match
+                pairsLeft--;
+                //increasing health
+                health+= 2;
                 
+                //output that they foudn the lucky pair of A's
+                System.out.println("You found the lucky pair of A's, You gain 2 life");
+                
+                //output that cards are a match
+                System.out.println("The cards are a match. Your health is now: " + health);
 
+                //tell user what match they found
+                System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+
+                //set correct cards on display grid to zero
+                bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+                bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+
+                //Atiqat 
+                //adding the used numbers to the arraylist to stop user from using the number again
+                usedNumbers.add(bytInput1);
+                usedNumbers.add(bytInput2);
             }
             else
             {
@@ -211,8 +233,8 @@ public class Gameplay
         {
             endingMethod(false, health);
         }
-
     }
+    
     //this method will generate a 2d array with the object cards in them
     //Christopher
     public static Cards[][] randomizeGrid(byte bytColSize, byte bytRowSize)
