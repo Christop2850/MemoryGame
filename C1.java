@@ -25,5 +25,5 @@ public class C1 extends Cards
         return "A";
 
     }
-
+    
 }

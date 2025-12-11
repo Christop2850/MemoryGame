@@ -49,7 +49,6 @@ public class Gameplay
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
 
-        //EVERYTHING UNDER THIS NEEDS TO BE LOOPED WITH PROPER WIN AND LOSE CONIDITIONS WAHHOOOO
         //Atiqat
         while (health > 0 && pairsLeft > 0 )
 
@@ -141,6 +140,7 @@ public class Gameplay
             } while (bolError);
 
             //search through the display grid for the index containing the 2 cards the player asked for
+            //Christopher
             for (byte i = 0; i< bytDisplay.length ;i++)
             {
                 for (byte j = 0; j< bytDisplay[0].length ;j++)
@@ -188,9 +188,6 @@ public class Gameplay
                 //adding the used numbers to the arraylist to stop user from using the number again
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
-
-                
-
             }
             else
             {
@@ -206,8 +203,6 @@ public class Gameplay
                 System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
 
             }
-
-
         }
         
         //Atiqat 
@@ -222,7 +217,6 @@ public class Gameplay
         {
             endingMethod(false, health);
         }
-
     }
     //this method will generate a 2d array with the object cards in them
     //Christopher
