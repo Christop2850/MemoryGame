@@ -189,6 +189,31 @@ public class Gameplay
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
             }
+            else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
+            {
+                //decreasing the pairs left for user to match
+                pairsLeft--;
+                //increasing health
+                health+= 2;
+                
+                //output that they foudn the lucky pair of A's
+                System.out.println("You found the lucky pair of A's, You gain 2 life");
+                
+                //output that cards are a match
+                System.out.println("The cards are a match. Your health is now: " + health);
+
+                //tell user what match they found
+                System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+
+                //set correct cards on display grid to zero
+                bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+                bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+
+                //Atiqat 
+                //adding the used numbers to the arraylist to stop user from using the number again
+                usedNumbers.add(bytInput1);
+                usedNumbers.add(bytInput2);
+            }
             else
             {
 
