@@ -256,6 +256,10 @@ public class Gameplay
                 {
                    bolPlayAgain = true;
                    bolError = false;
+                   
+                   //reset health and pairs left
+                   bytHealth = 10;
+                   intPairsLeft = 8;
                 }
                 else if (strReplay.equalsIgnoreCase("No"))
                 {
@@ -264,6 +268,7 @@ public class Gameplay
                 }
                 else
                 {
+                    System.out.println("Error: please input yes or no");
                     bolError = true; 
                 }
             }
