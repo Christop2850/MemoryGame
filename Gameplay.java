@@ -59,18 +59,7 @@ public class Gameplay
             printGrid(bytDisplay);
             System.out.println("\nHealth: " + health);
             System.out.println("Pairs left: " + pairsLeft+"\n");
-
-            // for (int i= 0;i<Deck.length;i++)
-            // {//rows
-                // for(int j = 0;j<Deck[0].length;j++)
-                // {//cols
-                    // //output the element with a tab    between
-                    // System.out.print(Deck[i][j] + "\t");		
-                // }
-                // //new line for every new row
-                // System.out.println ();
-            // }
-
+            
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
 
@@ -227,6 +216,8 @@ public class Gameplay
                 System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
 
             }
+
+
         }
         
         //Atiqat 
@@ -242,6 +233,7 @@ public class Gameplay
             endingMethod(false, health);
         }
     }
+    
     //this method will generate a 2d array with the object cards in them
     //Christopher
     public static Cards[][] randomizeGrid(byte bytColSize, byte bytRowSize)
@@ -346,9 +338,9 @@ public class Gameplay
         {
             for(byte j = 0; j <bytGrid[0].length; j++)
             {
-                System.out.print(bytGrid[i][j] +  " ");
+                System.out.print(bytGrid[i][j] +  " \t");
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 
