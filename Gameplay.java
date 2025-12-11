@@ -60,20 +60,7 @@ public class Gameplay
             printGrid(bytDisplay);
             System.out.println("\nHealth: " + health);
             System.out.println("Pairs left: " + pairsLeft+"\n");
-            
-            //will remove
-            for (int i= 0;i<Deck.length;i++)
-            {//rows
-                for(int j = 0;j<Deck[0].length;j++)
-            {//cols 
-               //output the element with a tab    between
-            	System.out.print(Deck[i][j] + "\t");		
-            }
-                //new line for every new row
-                System.out.println ();
-            }
 
-            
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
 
@@ -101,6 +88,7 @@ public class Gameplay
 
                 //Atiqat
                 // prevent choosing a matched card
+                //if the arrayList contains the number chosen then question is looped
                 if (usedNumbers.contains(bytInput1)) {
                     System.out.println("This card is already matched. Choose a different card.");
                     bolError = true;
@@ -134,7 +122,7 @@ public class Gameplay
 
                 //Atiqat
                 //prevent choosing a matched card
-                //if the arrayList contains the number chosen it is looped
+                //if the arrayList contains the number chosen then question is looped
                 if (usedNumbers.contains(bytInput2)) {
                     System.out.println("This card is already matched. Choose a different card.");
                     bolError = true;
@@ -169,7 +157,12 @@ public class Gameplay
             //Farheen
             if(Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2]))
             {
-
+                //Atiqat
+                //decreasing the pairs left for user to match
+                pairsLeft--;
+                //increasing health
+                health++;
+                
                 //output that cards are a match
                 System.out.println("The cards are a match. Your health is now: " + health);
 
@@ -181,37 +174,39 @@ public class Gameplay
                 bytDisplay[bytRowIndex2][bytColIndex2] = 0;
 
                 //Atiqat 
+                //adding the used numbers to the arraylist to stop user from using the number again
                 usedNumbers.add(bytInput1);
                 usedNumbers.add(bytInput2);
 
-                //Atiqat
-                pairsLeft--;
-                health++;
+                
 
             }
             else
             {
 
+                //Atiqat 
+                //decreasing health
+                health--;
+                
                 //output that cards don't match
-                System.out.println("The cards are not a match. Your health is now: " + (health-1));
+                System.out.println("The cards are not a match. Your health is now: " + (health));
 
                 //tell user what cards are at locations chosen
                 System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
 
             }
-            
-            //atiqat 
-            if (health ==0)
-            {
-                endingMethod(false, health);
-            }
+
 
         }
         
+        //Atiqat 
+        //if there are no more pairs left and thier health is not 0 
+        //then they win and game ends
         if (pairsLeft == 0 && health >= 1)
         {
             endingMethod(true, health);
         }
+        //if health is at 0, then game ends and they lose
         else
         {
             endingMethod(false, health);
@@ -283,7 +278,7 @@ public class Gameplay
                 }
             }
         }        
-        
+
         //return the 2d array
         return Deck;    
     }
@@ -339,11 +334,11 @@ public class Gameplay
 
             //output message
             System.out.println("\n\nCongratulations! You won the game!");
-            
+
+            //updatng the user score to thier profile
             MainMenu.updateScore(score);
             //
             System.out.println("Your score is: " + score);
-            
 
         }
         else
