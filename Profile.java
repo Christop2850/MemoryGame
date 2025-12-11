@@ -115,6 +115,11 @@ public class Profile extends Player
         }
     }
 
+    
+    /**
+     * Updates Player object to a file using object serialization.
+     * This method creates a file "username.txt" and writes the Player to it.
+     */
     public static void updateProfile(Player player)
     {
         try
