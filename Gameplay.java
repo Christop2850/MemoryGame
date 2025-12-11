@@ -28,8 +28,8 @@ public class Gameplay
 
         //declare a constant of byte for health
         //final byte HEALTH = 10;
-        byte health = 10;
-        int pairsLeft = 8;
+        byte bytHealth = 10;
+        int intPairsLeft = 8;
 
         //declare a 2d array of type Cards to hold the randomized Cards
         Cards[][] Deck;
@@ -50,15 +50,15 @@ public class Gameplay
         bytDisplay = generateGrid(COL, ROW);
 
         //Atiqat
-        while (health > 0 && pairsLeft > 0 )
+        while (bytHealth > 0 && intPairsLeft > 0 )
 
         {
             //Atiqat
             // PRINT UPDATED GRID
             System.out.println("---------------------------------------\n");
             printGrid(bytDisplay);
-            System.out.println("\nHealth: " + health);
-            System.out.println("Pairs left: " + pairsLeft+"\n");
+            System.out.println("\nHealth: " + bytHealth);
+            System.out.println("Pairs left: " + intPairsLeft+"\n");
             
             //ask the user for the first card they want to flip
             System.out.println("Which first card do you want to pick (Please input the number)");
@@ -159,12 +159,12 @@ public class Gameplay
             {
                 //Atiqat
                 //decreasing the pairs left for user to match
-                pairsLeft--;
+                intPairsLeft--;
                 //increasing health
-                health++;
+                bytHealth++;
                 
                 //output that cards are a match
-                System.out.println("The cards are a match. Your health is now: " + health);
+                System.out.println("The cards are a match. Your health is now: " + bytHealth);
 
                 //tell user what match they found
                 System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
@@ -181,15 +181,15 @@ public class Gameplay
             else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
             {
                 //decreasing the pairs left for user to match
-                pairsLeft--;
+                intPairsLeft--;
                 //increasing health
-                health+= 2;
+                bytHealth+= 2;
                 
                 //output that they foudn the lucky pair of A's
                 System.out.println("You found the lucky pair of A's, You gain 2 life");
                 
                 //output that cards are a match
-                System.out.println("The cards are a match. Your health is now: " + health);
+                System.out.println("The cards are a match. Your health is now: " + bytHealth);
 
                 //tell user what match they found
                 System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
@@ -207,10 +207,10 @@ public class Gameplay
 
                 //Atiqat 
                 //decreasing health
-                health--;
+                bytHealth--;
                 
                 //output that cards don't match
-                System.out.println("The cards are not a match. Your health is now: " + (health));
+                System.out.println("The cards are not a match. Your health is now: " + (bytHealth));
 
                 //tell user what cards are at locations chosen
                 System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
@@ -223,14 +223,14 @@ public class Gameplay
         //Atiqat 
         //if there are no more pairs left and thier health is not 0 
         //then they win and game ends
-        if (pairsLeft == 0 && health >= 1)
+        if (intPairsLeft == 0 && bytHealth >= 1)
         {
-            endingMethod(true, health);
+            endingMethod(true, bytHealth);
         }
         //if health is at 0, then game ends and they lose
         else
         {
-            endingMethod(false, health);
+            endingMethod(false, bytHealth);
         }
     }
     
