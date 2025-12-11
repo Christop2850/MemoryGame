@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class TestClass here.
+ * Description: Runs the entire game
  *
  * @author (Atiqat Adefioye)
  * @version (December 10th 2025)

@@ -63,7 +63,6 @@ public class Player implements java.io.Serializable
     {
         return this.strPassword;
     }
-    
     //Atiqat
     public byte getbytScore()
     {
@@ -80,8 +79,7 @@ public class Player implements java.io.Serializable
     {
         this.strPassword = p;
     }
-    
-    //atiqat
+    //Atiqat
     public void setScore(byte s)
     {
         this.bytScore = s;
