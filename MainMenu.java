@@ -78,6 +78,7 @@ public class MainMenu extends Player
             + "\nChoose two numbers from the grid."
             + "\nEach number reveals a hidden letter"
             + "\nIf the two letters match, your score increases!"
+            + "\nIf you find the lucky pair, then your health increases by 2!!!!"
             + "\nIf the letters do not match, you lose health."
             + "\nWhen your health reaches 0, the game ends."
             + "\nBut if you match all pairs before running out of health, you win!");
@@ -207,11 +208,10 @@ public class MainMenu extends Player
     
     public static void updateScore(byte score)
     { 
-        
+        //sets the score in the Player object
         player.setScore(score); 
         
+        //calling update profile method 
         Profile.UpdateProfile(player);
-        
-        
     }
 }
