@@ -27,21 +27,15 @@ public class MainMenu extends Player
     private static String strUserName = "";
     private static String strPassword = "";
     private static byte bytUserOption = 0;
-    private static boolean exist = false;
+    private static boolean bolExist = false;
         
     /**
      * Main introduction sequence for the game.
      * Shows welcome messages, rules, and asks the user
      * whether they are a new user or a returning user.
      */
-    public static void Intro( )
+    public static void intro( )
     {
-        // Variables for username, password, and menu selections
-        //String strUserName = "";
-        //String strPassword = "";
-        //byte bytUserOption = 0;
-        //boolean exist = false;
-
         // Opening welcome message
         JOptionPane.showMessageDialog(null,"Welcome to Match Mania!!!! \nThis is a memory card game, to test your memory!!!!");
 
@@ -55,13 +49,13 @@ public class MainMenu extends Player
         if (bytUserOption == 0)
         {
             //call sign up method
-            SignUP(strUserName,strPassword);
+            signUp(strUserName,strPassword);
         }
         // 1 = NO → Log in
         else if (bytUserOption == 1)
         {
             //call log in method
-            Login(strUserName,strPassword,exist);
+            login(strUserName,strPassword,bolExist);
         }
         // 2 = CANCEL or closed dialog → exit intro
         else
@@ -95,9 +89,9 @@ public class MainMenu extends Player
      * p Temporary password input
      * e Boolean flag indicating if user exists
      */
-    public static void Login(String u, String p, boolean e)
+    public static void login(String u, String p, boolean e)
     {
-        boolean validPassword = false;
+        boolean bolValidPassword = false;
 
         //Prompt user for their username        
         u = JOptionPane.showInputDialog("Please enter your UserName");
@@ -112,7 +106,7 @@ public class MainMenu extends Player
         if (e == true)
         {
             //Load saved Player object
-            player = Profile.Login(player);
+            player = Profile.login(player);
 
             //Loop until password is correct
             do 
@@ -127,7 +121,7 @@ public class MainMenu extends Player
                     +"\nCan you get better???");
 
                     //if password is correct update boolean to ture to break loop
-                    validPassword= true;
+                    bolValidPassword= true;
                 }
                 else
                 {
@@ -135,12 +129,12 @@ public class MainMenu extends Player
                     JOptionPane.showMessageDialog(null,"Wrong password try again!!");
 
                     //if password is wrong update boolean to false to loop
-                    validPassword = false;
+                    bolValidPassword = false;
 
                     //Checking the password
                     //JOptionPane.showMessageDialog(null,player.getstrPassword());
                 }
-            }while(validPassword == false);
+            }while(bolValidPassword == false);
 
         }
         //User does not exist
@@ -150,7 +144,7 @@ public class MainMenu extends Player
             JOptionPane.showMessageDialog(null,"This player does nopt exist!!!, Please signUp");
 
             //calling signUP method 
-            SignUP(u,p);
+            signUp(u,p);
         }
 
     }
@@ -160,9 +154,9 @@ public class MainMenu extends Player
      * and a password, validates password length, and then saves
      * the new Player profile using Profile.Signup().
      */
-    public static void SignUP(String u, String p)
+    public static void signUp(String u, String p)
     {
-        boolean correct = false;
+        boolean bolCorrect = false;
 
         //Prompting the user for username
         u = JOptionPane.showInputDialog("Please enter your UserName");
@@ -181,7 +175,7 @@ public class MainMenu extends Player
                 JOptionPane.showMessageDialog(null,"Perfect!!");
 
                 //updates boolean to ture to stop from looping
-                correct = true;
+                bolCorrect = true;
             }
             else 
             {
@@ -189,17 +183,17 @@ public class MainMenu extends Player
                 JOptionPane.showMessageDialog(null, "Invalid password length! Try again."); 
                 
                 //update boolean to flase to continue loop
-                correct = false;
+                bolCorrect = false;
             }
         }
-        while(!correct);
+        while(!bolCorrect);
 
         //Inform user to remember credentials
         JOptionPane.showMessageDialog(null,"Make sure to remember your username and passowrd because you will need it for next time!!!");
 
         // Create new Player object and save it
         player = new Player(u,p);  
-        Profile.Signup(player);
+        Profile.signUp(player);
 
         //Final welcome message
         JOptionPane.showMessageDialog(null,"Welcome " + player.getstrUserName() + "!!!!!");
@@ -212,6 +206,6 @@ public class MainMenu extends Player
         player.setScore(score); 
         
         //calling update profile method 
-        Profile.UpdateProfile(player);
+        Profile.updateProfile(player);
     }
 }
