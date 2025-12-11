@@ -60,7 +60,9 @@ public class MainMenu extends Player
         // 2 = CANCEL or closed dialog → exit intro
         else
         {
-            return;
+            JOptionPane.showMessageDialog(null,"You closed the game, bye");
+            
+            System.exit(0);
         }
 
     }
