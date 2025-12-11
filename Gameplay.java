@@ -39,6 +39,12 @@ public class Gameplay
 
         //create a varaible of type boolean to error trap
         boolean bolError = false;
+        
+        //create a variable of tpye boolean to loop the game if the player wants to
+        boolean bolPlayAgain = false;
+        
+        //create a variable of type string to hold the users input if they want to replay the game
+        String strReplay;
 
         //declare a variable of type boolean to store if the cards are a match or not
         //boolean bolMatch;
@@ -48,190 +54,222 @@ public class Gameplay
 
         //call the generatGrid method and the printGrid method to generate and show to the player the grid visual
         bytDisplay = generateGrid(COL, ROW);
-
-        //Atiqat
-        while (bytHealth > 0 && intPairsLeft > 0 )
-
+        
+        do
         {
             //Atiqat
-            // PRINT UPDATED GRID
-            System.out.println("---------------------------------------\n");
-            printGrid(bytDisplay);
-            System.out.println("\nHealth: " + bytHealth);
-            System.out.println("Pairs left: " + intPairsLeft+"\n");
+            while (bytHealth > 0 && intPairsLeft > 0 )
+    
+            {
+                //Atiqat
+                // PRINT UPDATED GRID
+                System.out.println("---------------------------------------\n");
+                printGrid(bytDisplay);
+                System.out.println("\nHealth: " + bytHealth);
+                System.out.println("Pairs left: " + intPairsLeft+"\n");
+                
+                //ask the user for the first card they want to flip
+                System.out.println("Which first card do you want to pick (Please input the number)");
+    
+                //use a do while loop in case there is a error
+                do
+                {
+                    //populate the variable with the user's input and error trap using a try catch block
+                    try
+                    {
+                        bytInput1 = new Scanner(System.in).nextByte();
+                        bolError = false;
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Error, please try again");
+                        bolError = true;
+                    }
+    
+                    //use a if block error trap
+                    if ((bytInput1 > 16 || bytInput1 < 1) && bolError == false)
+                    {
+                        System.out.println("Error, please try again");
+                        bolError = true;
+                    }
+    
+                    //Atiqat
+                    // prevent choosing a matched card
+                    //if the arrayList contains the number chosen then question is looped
+                    if (usedNumbers.contains(bytInput1)) {
+                        System.out.println("This card is already matched. Choose a different card.");
+                        bolError = true;
+                    }
+                } while (bolError);
+    
+                //ask the user for the first card they want to flip
+                System.out.println("Which second card do you want to pick (Please input the number)");
+    
+                //use a do while loop in case there is a error
+                do
+                {
+                    //populate the variable with the user's input and error trap using a try catch block
+                    try
+                    {
+                        bytInput2 = new Scanner(System.in).nextByte();
+                        bolError = false;
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Error, please try again");
+                        bolError = true;
+                    }
+    
+                    //use a if block error trap
+                    if ((bytInput2 > 16 || bytInput2 < 1) && bolError == false)
+                    {
+                        System.out.println("Error, please try again");
+                        bolError = true;
+                    }
+    
+                    //Atiqat
+                    //prevent choosing a matched card
+                    //if the arrayList contains the number chosen then question is looped
+                    if (usedNumbers.contains(bytInput2)) {
+                        System.out.println("This card is already matched. Choose a different card.");
+                        bolError = true;
+                    }
+                } while (bolError);
+    
+                //search through the display grid for the index containing the 2 cards the player asked for
+                //Christopher
+                for (byte i = 0; i< bytDisplay.length ;i++)
+                {
+                    for (byte j = 0; j< bytDisplay[0].length ;j++)
+                    {
+                        if (bytInput1 == bytDisplay[i][j])
+                        {
+                            bytColIndex1 = j;
+                            bytRowIndex1 = i;
+                        }
+                    }
+                }
+                for (byte i = 0; i< bytDisplay.length ;i++)
+                {
+                    for (byte j = 0; j< bytDisplay[0].length ;j++)
+                    {
+                        if (bytInput2 == bytDisplay[i][j])
+                        {
+                            bytColIndex2 = j;
+                            bytRowIndex2 = i;
+                        }
+                    }
+                }
+    
+                //code an if statement to compare cards and tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
+                //Farheen
+                if(Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2]))
+                {
+                    //Atiqat
+                    //decreasing the pairs left for user to match
+                    intPairsLeft--;
+                    //increasing health
+                    bytHealth++;
+                    
+                    //output that cards are a match
+                    System.out.println("The cards are a match. Your health is now: " + bytHealth);
+    
+                    //tell user what match they found
+                    System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+    
+                    //set correct cards on display grid to zero
+                    bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+                    bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+    
+                    //Atiqat 
+                    //adding the used numbers to the arraylist to stop user from using the number again
+                    usedNumbers.add(bytInput1);
+                    usedNumbers.add(bytInput2);
+                }
+                else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
+                {
+                    //decreasing the pairs left for user to match
+                    intPairsLeft--;
+                    //increasing health
+                    bytHealth+= 2;
+                    
+                    //output that they foudn the lucky pair of A's
+                    System.out.println("You found the lucky pair of A's, You gain 2 life");
+                    
+                    //output that cards are a match
+                    System.out.println("The cards are a match. Your health is now: " + bytHealth);
+    
+                    //tell user what match they found
+                    System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
+    
+                    //set correct cards on display grid to zero
+                    bytDisplay[bytRowIndex1][bytColIndex1] = 0;
+                    bytDisplay[bytRowIndex2][bytColIndex2] = 0;
+    
+                    //adding the used numbers to the arraylist to stop user from using the number again
+                    usedNumbers.add(bytInput1);
+                    usedNumbers.add(bytInput2);
+                }
+                else
+                {
+    
+                    //Atiqat 
+                    //decreasing health
+                    bytHealth--;
+                    
+                    //output that cards don't match
+                    System.out.println("The cards are not a match. Your health is now: " + (bytHealth));
+    
+                    //tell user what cards are at locations chosen
+                    System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
+    
+                }
+    
+    
+            }
             
-            //ask the user for the first card they want to flip
-            System.out.println("Which first card do you want to pick (Please input the number)");
-
-            //use a do while loop in case there is a error
-            do
+            //Atiqat 
+            //if there are no more pairs left and thier health is not 0 
+            //then they win and game ends
+            if (intPairsLeft == 0 && bytHealth >= 1)
             {
-                //populate the variable with the user's input and error trap using a try catch block
-                try
-                {
-                    bytInput1 = new Scanner(System.in).nextByte();
-                    bolError = false;
-                }
-                catch(Exception e)
-                {
-                    System.out.println("Error, please try again");
-                    bolError = true;
-                }
-
-                //use a if block error trap
-                if ((bytInput1 > 16 || bytInput1 < 1) && bolError == false)
-                {
-                    System.out.println("Error, please try again");
-                    bolError = true;
-                }
-
-                //Atiqat
-                // prevent choosing a matched card
-                //if the arrayList contains the number chosen then question is looped
-                if (usedNumbers.contains(bytInput1)) {
-                    System.out.println("This card is already matched. Choose a different card.");
-                    bolError = true;
-                }
-            } while (bolError);
-
-            //ask the user for the first card they want to flip
-            System.out.println("Which second card do you want to pick (Please input the number)");
-
-            //use a do while loop in case there is a error
-            do
-            {
-                //populate the variable with the user's input and error trap using a try catch block
-                try
-                {
-                    bytInput2 = new Scanner(System.in).nextByte();
-                    bolError = false;
-                }
-                catch(Exception e)
-                {
-                    System.out.println("Error, please try again");
-                    bolError = true;
-                }
-
-                //use a if block error trap
-                if ((bytInput2 > 16 || bytInput2 < 1) && bolError == false)
-                {
-                    System.out.println("Error, please try again");
-                    bolError = true;
-                }
-
-                //Atiqat
-                //prevent choosing a matched card
-                //if the arrayList contains the number chosen then question is looped
-                if (usedNumbers.contains(bytInput2)) {
-                    System.out.println("This card is already matched. Choose a different card.");
-                    bolError = true;
-                }
-            } while (bolError);
-
-            //search through the display grid for the index containing the 2 cards the player asked for
-            //Christopher
-            for (byte i = 0; i< bytDisplay.length ;i++)
-            {
-                for (byte j = 0; j< bytDisplay[0].length ;j++)
-                {
-                    if (bytInput1 == bytDisplay[i][j])
-                    {
-                        bytColIndex1 = j;
-                        bytRowIndex1 = i;
-                    }
-                }
+                endingMethod(true, bytHealth);
             }
-            for (byte i = 0; i< bytDisplay.length ;i++)
-            {
-                for (byte j = 0; j< bytDisplay[0].length ;j++)
-                {
-                    if (bytInput2 == bytDisplay[i][j])
-                    {
-                        bytColIndex2 = j;
-                        bytRowIndex2 = i;
-                    }
-                }
-            }
-
-            //code an if statement to compare cards and tell user if the cards are a match or not, tell the user what the cards are, and add to health if correct and take away from health if incorrect
-            //Farheen
-            if(Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2]))
-            {
-                //Atiqat
-                //decreasing the pairs left for user to match
-                intPairsLeft--;
-                //increasing health
-                bytHealth++;
-                
-                //output that cards are a match
-                System.out.println("The cards are a match. Your health is now: " + bytHealth);
-
-                //tell user what match they found
-                System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
-
-                //set correct cards on display grid to zero
-                bytDisplay[bytRowIndex1][bytColIndex1] = 0;
-                bytDisplay[bytRowIndex2][bytColIndex2] = 0;
-
-                //Atiqat 
-                //adding the used numbers to the arraylist to stop user from using the number again
-                usedNumbers.add(bytInput1);
-                usedNumbers.add(bytInput2);
-            }
-            else if ((Deck[bytRowIndex1][bytColIndex1].equals(Deck[bytRowIndex2][bytColIndex2])) && (Deck[bytRowIndex1][bytColIndex1]).toString() == "A")
-            {
-                //decreasing the pairs left for user to match
-                intPairsLeft--;
-                //increasing health
-                bytHealth+= 2;
-                
-                //output that they foudn the lucky pair of A's
-                System.out.println("You found the lucky pair of A's, You gain 2 life");
-                
-                //output that cards are a match
-                System.out.println("The cards are a match. Your health is now: " + bytHealth);
-
-                //tell user what match they found
-                System.out.println("The pair found is " + Deck[bytRowIndex1][bytColIndex1]);
-
-                //set correct cards on display grid to zero
-                bytDisplay[bytRowIndex1][bytColIndex1] = 0;
-                bytDisplay[bytRowIndex2][bytColIndex2] = 0;
-
-                //adding the used numbers to the arraylist to stop user from using the number again
-                usedNumbers.add(bytInput1);
-                usedNumbers.add(bytInput2);
-            }
+            //if health is at 0, then game ends and they lose
             else
             {
-
-                //Atiqat 
-                //decreasing health
-                bytHealth--;
-                
-                //output that cards don't match
-                System.out.println("The cards are not a match. Your health is now: " + (bytHealth));
-
-                //tell user what cards are at locations chosen
-                System.out.println("Card 1 was " + Deck[bytRowIndex1][bytColIndex1] + "\nCard 2 was " + Deck[bytRowIndex2][bytColIndex2]);
-
+                endingMethod(false, bytHealth);
             }
-
-
-        }
+            
+            //ask the player if they want to play again
+            System.out.println("Would you like to play again? (Yes/No)");
+            
+            //use a do while block to error trap
+            
+            do
+            {
+                //populate the variable with the users awnser using a scanner
+                strReplay = new Scanner (System.in).nextLine();
+            
+                //use an if statement to populate set the boolean depending on the user's awnser
+                if (strReplay.equalsIgnoreCase("Yes"))
+                {
+                   bolPlayAgain = true;
+                   bolError = false;
+                }
+                else if (strReplay.equalsIgnoreCase("No"))
+                {
+                    bolPlayAgain = false;
+                    bolError = false;
+                }
+                else
+                {
+                    bolError = true; 
+                }
+            }
+            while(bolError);
+        } while(bolPlayAgain);
         
-        //Atiqat 
-        //if there are no more pairs left and thier health is not 0 
-        //then they win and game ends
-        if (intPairsLeft == 0 && bytHealth >= 1)
-        {
-            endingMethod(true, bytHealth);
-        }
-        //if health is at 0, then game ends and they lose
-        else
-        {
-            endingMethod(false, bytHealth);
-        }
     }
     
     //this method will generate a 2d array with the object cards in them

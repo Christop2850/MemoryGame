@@ -8,7 +8,7 @@
 public class Run
 {
     public static void Play()
-    {
+    {   
         //call the main menu class to run the main menu section of the game
         MainMenu.Intro();
         
