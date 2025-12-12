@@ -46,9 +46,6 @@ public class Gameplay
         //create a variable of type string to hold the users input if they want to replay the game
         String strReplay;
 
-        //declare a variable of type boolean to store if the cards are a match or not
-        //boolean bolMatch;
-
         //call the randomizeGrid method to populate the back end grid
         Deck = randomizeGrid(COL,ROW);
 
