@@ -12,6 +12,7 @@
  *  - Allows users to sign up for a new account.
  *  - Allows returning users to log into an existing account.
  *  - Validates passwords and checks whether profiles exist.
+ *  - Updates the users score at the end of the game
  * 
  * 
  * @author (Atiqat Adefioye)
@@ -204,6 +205,7 @@ public class MainMenu extends Player
 
     }
     
+    //updates the users score
     public static void updateScore(byte score)
     { 
         //sets the score in the Player object

@@ -8,6 +8,7 @@
  * 1. checker(Player) - checks if a saved profile file exists.
  * 2. Login(Player) - loads a saved Player object from a file.
  * 3. Signup(Player) - saves a new Player object to a file.
+ * 4. UpdateProfile(Player) - saves new player score onto the saved file.
  * 
  * This class uses java object serialization to store and 
  * load Player objects. Player profiles are saved as .txt files using
